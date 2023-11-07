@@ -113,4 +113,23 @@
 - cors
 - bodyParse (Not Required)    
 
+# Node.js Programming
+1. The Web Server using HTTP Module
+- The http module
+    - Foundation of HTTP Request Processing For Node.js Apps
+    - Allows to create Http Server and Start listing
+    - Capacilities to Read Header, Body, Url, and Method
+- Web Server http Readable Stream Methods
+````javascript
+        /* close: the channel on which the request is received */
+        on(event: 'close', listener: () => void): this;
+        /* data: Start Reading Data default is butter */
+        on(event: 'data', listener: (chunk: any) => void): this;
+            /* drain: The Received data is complete and the Channel Butter is over */
+        on(event: 'drain', listener: () => void): this;
+        /* end: The Received data is complete and current request is over */
+        on(event: 'end', listener: () => void): this;   
+        /* error: Error While Processing data */
+        on(event: 'error', listener: (err: Error) => void): this;
 
+````
