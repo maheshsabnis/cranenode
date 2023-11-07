@@ -133,3 +133,46 @@
         on(event: 'error', listener: (err: Error) => void): this;
 
 ````
+
+
+
+````javascript
+var searchresponse = [{
+  "order": [{
+    "items": [{
+        "route": "foo",
+        "display": "foo",
+        "employeeId": "ABC"
+      },
+      {
+        "route": "bar",
+        "display": "bar",
+        "employeeId": "DEF"
+      },
+      {
+        "route": "baz",
+        "display": "baz",
+        "employeeId": "GHI"
+      },
+      {
+        "route": "qux",
+        "display": "qux",
+        "employeeId": "JKL"
+      }
+    ]
+  }],
+  "more": false
+}];
+ 
+var data1 = ["ABC", "DEF"];
+var items = searchresponse[0].order[0].items;
+var i = items.length;
+while (i--) {
+  if (data1.indexOf(items[i].employeeId) != -1) {
+    items.splice(i, 1);
+  }
+}
+console.log(searchresponse[0].order[0].items);
+ 
+
+````
