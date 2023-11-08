@@ -230,6 +230,35 @@ let data = fs.readFileSync(filePath, { encoding: "utf8" });
 # Relational Database Access (MS-SQL Server) in Node.js Apps
 
 - The 'mssql' package
+    npm install mssql express
 
+# Express
+- Route HTTP Methods
+    - get(P1,P2), post(P1,P2), put(P1,P2), delete(P1,P2), etc
+    - P1,
+        - Endpoint URL
+    - P2, 
+        - The RequestHandler Callback
+            - Request and Response
+                - headers
+                - body
+            - Response
+                - send()
+                - status()
+                - json()
+                - sendFile()
+    - IRouter Interface
+        - Explicit Routing    
+    - use() method
+        - USed to Register 'Middlewares' inside the HTTP Request Processing
+            - cors()
+            - json()
+                - Older Days it was bodyParser (deprecated)  
+            - Static Files
+                - JS, HTML, CSS  
+            - session
+            - JWT                    
+    - listen()
+        - Expose the EndPoint    
 
 
