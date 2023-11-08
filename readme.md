@@ -176,3 +176,60 @@ console.log(searchresponse[0].order[0].items);
  
 
 ````
+
+# Node.js File Access
+- The 'fs' module
+    - IO Operations
+    - Synchronous Method
+        - Read /  Write
+            - Blocking Operations
+    - Asynchronous
+        - Read / Write
+            - No Blocking on Internal ThreadPool
+    - Directories
+    - Files
+    - Buffers
+        - Streams
+        - Pipe()
+- The 'fs' + 'http' module for creation of Web Server
+
+````javascript
+import fs from "fs";
+import path xfrom "path";
+import { fileURLToPath } from "url";
+
+
+// 1. Read the Server Path
+let __fileName = fileURLToPath(import.meta.url);
+console.log(`File Name = ${__fileName}`);
+// 2. Combine this with the actual Resource Path
+let dirPath = path.join(__fileName, "./../../filesNew");
+
+/* To Read the File */
+// 1. Read the Server Path
+let __fileName = fileURLToPath(import.meta.url);
+console.log(`File Name = ${__fileName}`);
+// 2. Combine this with the actual Resource Path
+let filePath = path.join(__fileName, "./../../files/a.txt");
+console.log(`File Path = ${filePath}`);
+let data = fs.readFileSync(filePath, { encoding: "utf8" });
+
+````
+
+# Node.js Modules
+- First look for the module from the Current path, if found load it and cache it
+- If Module not found from the current path, then look for the module from the Standard Node.js Module Library from the loaded Runtime and if found then load and cache it, if not found here also then throw Module Not Found Exception
+
+- Creating Custom Modules
+    - Use 'export' to export the Module, in ES 6+
+        - Can be a Constant
+        - Can be a Function /  Method
+        - Can be a Class
+    - Use 'import' to import the module    
+
+# Relational Database Access (MS-SQL Server) in Node.js Apps
+
+- The 'mssql' package
+
+
+
