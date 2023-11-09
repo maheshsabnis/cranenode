@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+
+            let products = [];
+            getData();
+           
+            $("#btnnew").on('click',function(){
+            $(".form-control").val('');
+           });
+           $("#btnsave").on('click',function(){
+               let product = {
+                 ProductId: $("#txtprdid").val(),
+                 ProductName: $("#txtprdname").val(),
+                 CategoryName: $("#txtcatname").val(),
+                 Manufacturer: $("#txtmanu").val(),
+                 Description: $("#txtdesc").val(),
+                 BasePrice: parseInt( $("#txtbaseprice").val())
+               };
+
+               $.ajax({
+                  url:'http://localhost:8090/api/products',
+                  method:'POST',
+                  contentType:'application/json',
+                  dataType:'json',
+                  data:JSON.stringify(product)
+               }).done(function(resp){
+                    getData();
+               }).fail(function(error){
+                $("#msg").html(`Error Occurred while saving data ${error}`);
+               });
+           });
+
+           function getData(){
+           
+            $.ajax({
+                url:'http://localhost:8090/api/products',
+                method:'GET' 
+             }).done(function(resp){
+                products = resp[0];
+                loadTable(products);
+             }).fail(function(error){
+                $("#msg").html(`Error Occurred while reading data ${error}`);
+             });
+           }
+
+           function loadTable(products){
+            $("#tbody").html('');
+                /* Read all Keys of Product*/
+                const columns = Object.keys(products[0]);
+                let tr = '<tr>';
+                 columns.forEach((h,i)=>{
+                    tr+= `<th>${h}</th>`
+                 }) ;   
+                 tr+= '</tr>';    
+                 $('#thead').append(tr);
+
+                 /* Now Generate the rows*/
+                 let tbr ='';
+                 products.forEach((prd,idx)=>{
+                     tbr = '<tr>';
+                        columns.forEach((h,i)=>{
+                            tbr+= `<td>${prd[h]}</td>`;
+                         }) ;     
+                    tbr += '</tr>';    
+                    $("#tbody").append(tbr);
+                 });   
+                
+           }    
+        });
+    </script>
+</head>
+<body>
+    <h1>The Client of Express REST API</h1>
+    <div class="container">
+        
+        <div class="form-group">
+            <label for="">Product  Id</label>
+            <input title="productid" type="text" id="txtprdid" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Product Name</label>
+            <input title="productname" type="text" id="txtprdname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Category Name</label>
+            <input title="catname" type="text" id="txtcatname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Manufacturer Name</label>
+            <input title="manufacturer" type="text" id="txtmanu" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Description</label>
+            <input title="desc" type="text" id="txtdesc" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Base Price</label>
+            <input title="baseprice" type="text" id="txtbaseprice" class="form-control">
+        </div>
+        <div class="form-group">
+           <button id="btnnew" class="btn btn-primary">New</button>
+           <button id="btnsave" class="btn btn-success">Save</button>
+        </div>
+    </div>
+    <div class="alert alert-danger">
+        <strong id="msg"></strong>
+    </div>
+    <hr/>
+    <div class="container"> 
+    <table class="table table-bordered table-striped" id="tbl">
+        <thead id="thead">
+             
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+</div>
+</body>
+</html>

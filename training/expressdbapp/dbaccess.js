@@ -1,6 +1,6 @@
 import { DbConnect } from "./dbconnect.js";
 import sql from 'mssql';
-
+/* Infra */
 class DataAccess {
     async getData(req,resp){
         if(await DbConnect.IsConnected()){
@@ -31,11 +31,11 @@ class DataAccess {
                 BasePrice:parseInt(req.body.BasePrice)
             };
             console.log(`Data :${JSON.stringify(product)}`)
-            let result = await sql.query(`Insert into ProductInfo values('${product.ProductId}', '${product.ProductName}','${product.CategoryName}','${product.Manufacturer}','${product.Description}', '${product.BasePrice})'`); 
+            let result = await sql.query(`Insert into ProductInfo values('${product.ProductId}', '${product.ProductName}','${product.CategoryName}','${product.Manufacturer}','${product.Description}', ${product.BasePrice})`); 
 
             resp.status(201).send({
                 message:'New Record is created',
-                data:result.recordset});
+                data:result.output});
         }
     }
 }

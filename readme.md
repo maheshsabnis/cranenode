@@ -260,5 +260,9 @@ let data = fs.readFileSync(filePath, { encoding: "utf8" });
             - JWT                    
     - listen()
         - Expose the EndPoint    
+    - MAke sure that the Express is configured with Cross-Origin-Respource-Sharing (CORS) moiddleware so that the Requerst to API from Different Server is accepted
+        - npm install cors
+        - instance.use(cors())
+            - The 'instance' is an express object     
 
 
